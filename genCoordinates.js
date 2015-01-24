@@ -7,7 +7,7 @@ var OPTIONS = {
   filename : process.argv[5] || "coordinates"
 }
 
-var coordinates = [];
+var coordinates = [],
     oneTenthX = OPTIONS.width / 10,
     oneTenthY = OPTIONS.height / 10;
 
