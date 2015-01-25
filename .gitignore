@@ -3,4 +3,5 @@
 *.jpeg
 *.json
 *.txt
+*.csv
 node_modules

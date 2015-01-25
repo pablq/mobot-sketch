@@ -5,7 +5,6 @@ var INFILE = process.argv[2];
 var imageData;
 if (INFILE) {
   fs.readFile(INFILE, function (error, data) {
-    console.log(data);
 
     imageData = JSON.parse(data);
     
