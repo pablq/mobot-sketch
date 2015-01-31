@@ -60,11 +60,6 @@
             
             var drawing = gm(WIDTH, HEIGHT, SKY_C); 
 
-            // first draw the background
-            var to_int = function (value) {
-                return Math.floor(value);
-            };
-
             (function(){
 
                 var bottom_left = [ 0, 0 ],
@@ -75,8 +70,8 @@
                     console.log("value_at_0: " + horizon[i].value_at_0 + ", value_at_360: " + horizon[i].value_at_360 + ";");        
                     console.log("left: " + left + ", right: " + right + ";");        
                     
-                    var left_val = to_int(HEIGHT * (horizon[i].value_at_0 / MAX_DIST)),
-                        right_val = to_int(HEIGHT * (horizon[i].value_at_360 / MAX_DIST)),
+                    var left_val = Math.floor(HEIGHT * (horizon[i].value_at_0 / MAX_DIST)),
+                        right_val = Math.floor(HEIGHT * (horizon[i].value_at_360 / MAX_DIST)),
                         left = [ 0, left_val ],
                         right = [ WIDTH, right_val ],
                         color = i ? GRASS_FAR_C : GRASS_CLOSE_C;
