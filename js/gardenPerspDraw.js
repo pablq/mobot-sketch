@@ -24,29 +24,25 @@
 
             var gm = require("gm");
 
-            var L_BNDRY = 0,
-                R_BNDRY = 360,
-                MIN_DIST = 0,
-                MAX_DIST = 100,
-                MIN_SIZE = 0,
-                MAX_SIZE = 10,
+            var MAX_DIST = 100,
                 TREE = "y",
                 BUSH = "o",
                 ROCK = "x",
-                WATER = "w",
                 PERSON = "p",
-                SKY_C = "#00ffff",
-                GRASS_FAR_C = "#ccff99",
+                SKY_C = "#ccffff",
+                GRASS_FAR_C = "#ccffcc",
+                GRASS_MID_C = "#ccff99",
                 GRASS_CLOSE_C = "#a3cc7a";
 
-            var HEIGHT = 500,
+            var TOTAL_HEIGHT = 600,
+                HEIGHT = 500,
                 WIDTH = 1000;
 
             objects = objects.sort(function (a, b) {
-                if (a["view_range"] > b["view_range"])
-                    return 1;
-                if (a["view_range"] < b["view_range"])
+                if (a["distance"] > b["distance"])
                     return -1;
+                if (a["distance"] < b["distance"])
+                    return 1;
                 return 0;
             });
             
@@ -58,23 +54,20 @@
                 return 0;
             });
             
-            var drawing = gm(WIDTH, HEIGHT, SKY_C); 
+            var drawing = gm(WIDTH, TOTAL_HEIGHT, SKY_C); 
 
             (function(){
 
-                var bottom_left = [ 0, 0 ],
-                    bottom_right = [ WIDTH, 0 ];
+                var bottom_left = [ 0, TOTAL_HEIGHT ],
+                    bottom_right = [ WIDTH, TOTAL_HEIGHT ];
 
                 for (var i = 0, len = horizon.length; i < len; i += 1) {
                         
-                    console.log("value_at_0: " + horizon[i].value_at_0 + ", value_at_360: " + horizon[i].value_at_360 + ";");        
-                    console.log("left: " + left + ", right: " + right + ";");        
-                    
-                    var left_val = Math.floor(HEIGHT * (horizon[i].value_at_0 / MAX_DIST)),
-                        right_val = Math.floor(HEIGHT * (horizon[i].value_at_360 / MAX_DIST)),
+                    var left_val = TOTAL_HEIGHT - Math.floor(HEIGHT * (horizon[i].value_at_0 / MAX_DIST)),
+                        right_val = TOTAL_HEIGHT - Math.floor(HEIGHT * (horizon[i].value_at_360 / MAX_DIST)),
                         left = [ 0, left_val ],
                         right = [ WIDTH, right_val ],
-                        color = i ? GRASS_FAR_C : GRASS_CLOSE_C;
+                        color = (i < 1) ? GRASS_FAR_C : (i === 1) ? GRASS_MID_C : GRASS_CLOSE_C;
 
                     drawing.stroke(color)
                            .fill(color)
@@ -83,7 +76,30 @@
 
             })(); 
 
-            drawing.write("garden.jpg", function(drawError) {
+            var draw = require("./gardenPerspDrawFunctions.js")(drawing);
+
+            for (var i = 0, len = objects.length; i < len; i += 1) {
+
+                (function (object, index) {
+
+                    switch (object.type) {
+                        case TREE:
+                            drawing = draw.tree(object.view_range, object.object_size, object.distance);
+                            break;
+                        case BUSH:
+                            drawing = draw.bush(object.view_range, object.object_size, object.distance);
+                            break;
+                        case ROCK:
+                            drawing = draw.rock(object.view_range, object.object_size, object.distance);
+                            break;
+                        case PERSON:
+                            drawing = draw.person(object.view_range, object.object_size, object.distance);
+                    }
+                    
+                })(objects[i], i);
+            }
+
+            drawing.write("../output/mobot-japanese-garden-persp.png", function(drawError) {
                 if (drawError) {
                     console.log("FUCKING DRAW ERROR", drawError);
                     process.exit();
