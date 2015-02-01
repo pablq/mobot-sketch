@@ -1,8 +1,2 @@
-*.png
-*.jpg
-*.jpeg
-*.json
-*.txt
-*.csv
 *.swp
 node_modules
