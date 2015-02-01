@@ -56,11 +56,11 @@
             
             var drawing = gm(WIDTH, TOTAL_HEIGHT, SKY_C); 
 
-            (function(){
+            var bottom_left = [ 0, TOTAL_HEIGHT ],
+                bottom_right = [ WIDTH, TOTAL_HEIGHT ];
 
-                var bottom_left = [ 0, TOTAL_HEIGHT ],
-                    bottom_right = [ WIDTH, TOTAL_HEIGHT ];
-
+            (function () {
+                
                 for (var i = 0, len = horizon.length; i < len; i += 1) {
                         
                     var left_val = TOTAL_HEIGHT - Math.floor(HEIGHT * (horizon[i].value_at_0 / MAX_DIST)),
@@ -74,38 +74,43 @@
                            .drawPolygon(bottom_left, left, right, bottom_right);
                 }
 
-            })(); 
+            })();
 
             var draw = require("./gardenPerspDrawFunctions.js")(drawing);
 
-            for (var i = 0, len = objects.length; i < len; i += 1) {
+            (function () {
 
-                (function (object, index) {
+                for (var i = 0, len = objects.length; i < len; i += 1) {
 
-                    switch (object.type) {
-                        case TREE:
-                            drawing = draw.tree(object.view_range, object.object_size, object.distance);
-                            break;
-                        case BUSH:
-                            drawing = draw.bush(object.view_range, object.object_size, object.distance);
-                            break;
-                        case ROCK:
-                            drawing = draw.rock(object.view_range, object.object_size, object.distance);
-                            break;
-                        case PERSON:
-                            drawing = draw.person(object.view_range, object.object_size, object.distance);
-                    }
-                    
-                })(objects[i], i);
-            }
+                    (function (object) {
 
-            drawing.write("../output/mobot-japanese-garden-persp.png", function(drawError) {
-                if (drawError) {
-                    console.log("FUCKING DRAW ERROR", drawError);
+                        switch (object.type) {
+                            case TREE:
+                                drawing = draw.tree(object.view_range, object.object_size, object.distance);
+                                break;
+                            case BUSH:
+                                drawing = draw.bush(object.view_range, object.object_size, object.distance);
+                                break;
+                            case ROCK:
+                                drawing = draw.rock(object.view_range, object.object_size, object.distance);
+                                break;
+                            case PERSON:
+                                drawing = draw.person(object.view_range, object.object_size, object.distance);
+                        }
+                        
+                    })(objects[i]);
+                }
+
+            })();
+            drawing.write("../output/mobot-japanese-garden-persp.png", function (error) {
+
+                if (error) {
+                    console.log("FUCKING DRAW ERROR", error);
                     process.exit();
                 } else {
                     console.log("HOLY SHIT IT WORKED");
                 }
+                
             });
         }
     } 

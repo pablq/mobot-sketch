@@ -24,7 +24,7 @@ module.exports = function (image) {
 
     var drawTree = function (view_range, object_size, distance) {
                         
-        var base_size = 10,
+        var base_size = 9,
             origin = {
                 x: getOriginX(view_range),
                 y: getOriginY(distance)
@@ -33,30 +33,30 @@ module.exports = function (image) {
             step = Math.floor(size / 12); 
 
         var pBtmTLft = [ origin.x - step, origin.y ],
-            pBtmTRgt = [ origin.x + step, origin.y ],
+            pBtmTRgt = [ origin.x, origin.y ],
             pTopTRgt = [ origin.x, origin.y - (5 * step) ],
             pRgtBchLT = [ origin.x + (5 * step), origin.y - (6 * step) ],
-            pRgtBchLB = [ origin.x + (2 * step), origin.y - (6 * step) ],
+            pRgtBchLB = [ origin.x + step, origin.y - (6 * step) ],
             pRgtBchMT = [ origin.x + (5 * step), origin.y - (9 * step) ],
             pRgtBchMB = [ origin.x + step, origin.y - (7 * step) ],
             pRgtBchTT = [ origin.x + (2 * step), origin.y - (11 * step) ],
-            pRgtBchTB = [ origin.x, origin.y - (7 * step) ],
+            pRgtBchTB = [ origin.x, origin.y - (6 * step) ],
             pLftBchTB = [ origin.x - step, origin.y - (8 * step) ],
             pLftBchTT = [ origin.x - (2 * step), origin.y - (12 * step) ],
             pLftBchMB = [ origin.x - (2 * step), origin.y - (8 * step) ],
             pLftBchMT = [ origin.x - (4 * step), origin.y - (10 * step) ],
-            pLftBchLB = [ origin.x - (2 * step), origin.y - (6 * step) ],
-            pLftBchLT = [ origin.x - (7 * step), origin.y - (7 * step) ],
-            pTopTLft = [ origin.x - step, origin.y - (4 * step) ];
+            pLftBchLB = [ origin.x - step, origin.y - (4 * step) ],
+            pLftBchLT = [ origin.x - (6 * step), origin.y - (7 * step) ],
+            pTopTLft = [ origin.x - step, origin.y - (3 * step) ];
 
-        return image.stroke(BLACK_C)
+        return image.stroke(TREE_C)
                     .fill(TREE_C)
                     .drawPolygon(pBtmTLft, pBtmTRgt, pTopTRgt, pRgtBchLT, pRgtBchLB, pRgtBchMT, pRgtBchMB, pRgtBchTT, pRgtBchTB, pLftBchTB, pLftBchTT, pLftBchMB, pLftBchMT, pLftBchLB, pLftBchLT, pTopTLft);
     }
         
     var drawRock = function (view_range, object_size, distance) {
 
-        var base_size = 2,
+        var base_size = 3,
             origin = {
                 x: getOriginX(view_range),
                 y: getOriginY(distance)
@@ -73,7 +73,7 @@ module.exports = function (image) {
             pBtmRgt = [ origin.x + size, origin.y - (2 * step) ],
             pBtmMid = [ origin.x + (2 * step), origin.y]; 
 
-        return image.stroke(BLACK_C)
+        return image.stroke(ROCK_C)
                     .fill(ROCK_C)
                     .drawPolygon(pBtmLft, pMidLft, pTopLft, pTopMid, pTopRgt, pMidRgt, pBtmRgt, pBtmMid);
     }
@@ -88,9 +88,8 @@ module.exports = function (image) {
             size = base_size * object_size * (MAX_DIST / distance),
             step = Math.floor(size / 7);
 
-        var pBtmLft = [ origin.x - step, origin.y ],
-            pBtmRgt = [ origin.x, origin.y ],
-            pBtmRL = [ origin.x, origin.y - (2 * step) ],
+        var pBtmRgt = [ origin.x, origin.y ],
+        //    pBtmRL = [ origin.x, origin.y - (2 * step) ],
             pBtmRM = [ origin.x + (3 * step), origin.y - step ],
             pBtmRR = [ origin.x + (5 * step), origin.y - (3 * step) ],
             pTopRR = [ origin.x + (5 * step), origin.y - (5 * step) ],
@@ -101,9 +100,9 @@ module.exports = function (image) {
             pBtmLM = [ origin.x - (4 * step), origin.y - step ],
             pBtmLR = [ origin.x - step, origin.y - step ];
 
-        return image.stroke(BLACK_C)
+        return image.stroke(BUSH_C)
                     .fill(BUSH_C)
-                    .drawPolygon(pBtmLft, pBtmRgt, pBtmRL, pBtmRM, pBtmRR, pTopRR, pTopRL, pTopLR, pTopLL, pBtmLL, pBtmLM, pBtmLR);
+                    .drawPolygon(pBtmRgt, pBtmRM, pBtmRR, pTopRR, pTopRL, pTopLR, pTopLL, pBtmLL, pBtmLM, pBtmLR);
     }
 
     var drawPerson = function (view_range, object_size, distance) {
@@ -133,7 +132,7 @@ module.exports = function (image) {
             pLftArmR = [ origin.x - (2 * step), origin.y - (6 * step) ],
             pLftPit = [ origin.x - step, origin.y - (7 * step) ];
 
-        return image.stroke(BLACK_C)
+        return image.stroke(PERSON_C)
                     .fill(PERSON_C)
                     .drawPolygon(pLftFtL, pLftFtR, pCtch, pRgtFtL, pRgtFtR, pRgtPit, pRgtArmL, pRgtArmR, pRgtNeck, pRgtHead, pTopHeadRgt, pTopHeadLft, pLftNeck, pLftArmL, pLftArmR, pLftPit);
     }
