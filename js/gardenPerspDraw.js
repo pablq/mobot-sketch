@@ -1,9 +1,7 @@
 (function(){
 
-    var fs = require("fs"),
-        OBJ_INFILE = process.argv[2],
+    var OBJ_INFILE = process.argv[2],
         HOR_INFILE = process.argv[3];
-
 
     if (!OBJ_INFILE || !HOR_INFILE) { 
 
@@ -114,4 +112,4 @@
             });
         }
     } 
-})();
+)();

@@ -89,7 +89,6 @@ module.exports = function (image) {
             step = Math.floor(size / 7);
 
         var pBtmRgt = [ origin.x, origin.y ],
-        //    pBtmRL = [ origin.x, origin.y - (2 * step) ],
             pBtmRM = [ origin.x + (3 * step), origin.y - step ],
             pBtmRR = [ origin.x + (5 * step), origin.y - (3 * step) ],
             pTopRR = [ origin.x + (5 * step), origin.y - (5 * step) ],
