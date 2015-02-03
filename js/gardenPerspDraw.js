@@ -74,7 +74,7 @@
 
             })();
 
-            var draw = require("./gardenPerspDrawFunctions.js")(drawing);
+            var draw = require("./functions.js")(drawing);
 
             (function () {
 
@@ -112,4 +112,4 @@
             });
         }
     } 
-)();
+})();
