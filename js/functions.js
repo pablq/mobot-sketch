@@ -15,7 +15,11 @@ module.exports = function (image) {
         MAX_SIZE = 10;;
 
     var getOriginY = function (y_val) {
-        return TOTAL_HEIGHT - Math.floor(HEIGHT * (y_val / MAX_DIST) - (10 * (y_val / MAX_DIST)));
+        if (y_val > MAX_DIST / 2) {
+            return TOTAL_HEIGHT - Math.floor(HEIGHT * (y_val / MAX_DIST) - (10 * (y_val / MAX_DIST)));
+        } else {
+            return TOTAL_HEIGHT - Math.floor(HEIGHT * (y_val / MAX_DIST) + (10 * (1 - (y_val / MAX_DIST))));
+        }
     }
 
     var getOriginX = function (x_val) {
