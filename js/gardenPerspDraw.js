@@ -100,7 +100,7 @@
                 }
 
             })();
-            drawing.write("../output/mobot-japanese-garden-persp.png", function (error) {
+            drawing.write("../output/gardenPerspDraw.png", function (error) {
 
                 if (error) {
                     console.log("FUCKING DRAW ERROR", error);
