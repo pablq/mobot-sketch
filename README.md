@@ -1,4 +1,4 @@
-# sketchmaker-js
+# mobot-sketch
 
 This repository contains three javascript programs.
 
