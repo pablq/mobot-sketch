@@ -1,4 +1,4 @@
-# sketchmaker-js
+# mobot-sketch
 
 This repository contains three javascript programs.
 
@@ -12,9 +12,15 @@ The next two files, called gardenMapAscii.js and gardenMapAscii-2d.js, output .t
 
 These are run by typing the following in the /js directory:
 
-`node gardenMapAscii.js ../data/< mobot-map1.json || mobot-map2.json >` 
+`node gardenMapAscii.js ../data/mobot-map1.json` 
+or
+`node gardenMapAscii.js ../data/mobot-map2.json`
 
-`node gardenMapAscii-2d.js ../data/< mobot-map1.json || mobot-map2.json >`
+and 
+
+`node gardenMapAscii-2d.js ../data/mobot-map1.json`
+or 
+`node gardenMapAscii-2d.js ../data/mobot-map2.json`
 
 All output goes to the /output directory.
 
