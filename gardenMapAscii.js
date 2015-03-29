@@ -23,20 +23,27 @@
                 MAX_X = 100,
                 MIN_Y = 0,
                 MAX_Y = 60,
+                MIN_Z = 0,
+                MAX_Z = 20,
                 IMAGE = [],
                 OUTPUT = "",
-                OUTFILE = INFILE.split("/").pop().split(".")[0] + "-2d.txt";
+                OUTFILE = INFILE.split("/").pop().split(".")[0] + ".txt";
             
             (function () {
 
-                for (var y = MIN_Y; y <= MAX_Y; y += 1) {
+                for (var z = MIN_Z; z <= MAX_Z; z += 1) { 
 
                     IMAGE.push([]);
 
-                    for (var x = MIN_X; x <= MAX_X; x += 1) {
+                    for (var y = MIN_Y; y <= MAX_Y; y += 1) {
 
-                        IMAGE[y].push(" ");
+                        IMAGE[z].push([]);
 
+                        for (var x = MIN_X; x <= MAX_X; x += 1) {
+
+                            IMAGE[z][y].push(" ");
+
+                        };
                     };
                 };
 
@@ -48,7 +55,7 @@
                     
                     var coordinate = data[i];
 
-                    IMAGE[coordinate.y][coordinate.x] = coordinate.type;
+                    IMAGE[coordinate.z][coordinate.y][coordinate.x] = coordinate.type;
 
                 };
 
@@ -60,19 +67,26 @@
 
                 for (var i = 0, iLen = IMAGE.length; i < iLen; i += 1) {
                     
-                    for (var j = 0, jLen = IMAGE[i].length; j < jLen; j += 1) {
+                    OUTPUT += "\r\n*** BEGIN SHEET (z = " + i + ") ***\r\n\r\n";
 
-                        OUTPUT += IMAGE[i][j];                           
+                    for (var j = 0, jLen = IMAGE[i].length; j < jLen; j += 1) {
+                        
+                        for (var k = 0, kLen = IMAGE[i][j].length; k < kLen; k += 1) {
+
+                            OUTPUT += IMAGE[i][j][k];                           
+                        }
+
+                        OUTPUT += "\r\n";
                     }
 
-                    OUTPUT += "\r\n";
+                    OUTPUT += "\r\n*** END SHEET ***\r\n\r\n";
                 }
                 
-                OUTPUT += "\r\n*** END IMAGE ***\r\n";
+                OUTPUT += "*** END IMAGE ***\r\n";
 
             })();
 
-            fs.writeFile("../output/" + OUTFILE, OUTPUT, function (error) {
+            fs.writeFile("output/" + OUTFILE, OUTPUT, function (error) {
 
                 error ? console.log(error) : console.log("Success!");
                 process.exit();

@@ -100,13 +100,13 @@
                 }
 
             })();
-            drawing.write("../output/gardenPerspDraw.png", function (error) {
+            drawing.write("output/gardenPerspDraw.png", function (error) {
 
                 if (error) {
-                    console.log("FUCKING DRAW ERROR", error);
+                    console.log(error);
                     process.exit();
                 } else {
-                    console.log("HOLY SHIT IT WORKED");
+                    console.log("Success!");
                 }
                 
             });
