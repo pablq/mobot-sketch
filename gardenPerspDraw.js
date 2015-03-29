@@ -36,6 +36,11 @@
                 HEIGHT = 500,
                 WIDTH = 1000;
 
+            var draw = require("./functions.js")(drawing),
+                drawing = gm(WIDTH, TOTAL_HEIGHT, SKY_C); 
+                bottom_left = [ 0, TOTAL_HEIGHT ],
+                bottom_right = [ WIDTH, TOTAL_HEIGHT ];
+
             objects = objects.sort(function (a, b) {
                 if (a["distance"] > b["distance"])
                     return -1;
@@ -52,11 +57,6 @@
                 return 0;
             });
             
-            var drawing = gm(WIDTH, TOTAL_HEIGHT, SKY_C); 
-
-            var bottom_left = [ 0, TOTAL_HEIGHT ],
-                bottom_right = [ WIDTH, TOTAL_HEIGHT ];
-
             (function () {
                 
                 for (var i = 0, len = horizon.length; i < len; i += 1) {
@@ -73,8 +73,6 @@
                 }
 
             })();
-
-            var draw = require("./functions.js")(drawing);
 
             (function () {
 
@@ -100,6 +98,7 @@
                 }
 
             })();
+
             drawing.write("output/gardenPerspDraw.png", function (error) {
 
                 if (error) {
