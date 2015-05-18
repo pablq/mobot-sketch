@@ -36,8 +36,8 @@
                 HEIGHT = 500,
                 WIDTH = 1000;
 
-            var draw = require("./functions.js")(drawing),
-                drawing = gm(WIDTH, TOTAL_HEIGHT, SKY_C); 
+            var drawing = gm(WIDTH, TOTAL_HEIGHT, SKY_C); 
+                draw = require("./functions.js")(drawing),
                 bottom_left = [ 0, TOTAL_HEIGHT ],
                 bottom_right = [ WIDTH, TOTAL_HEIGHT ];
 
